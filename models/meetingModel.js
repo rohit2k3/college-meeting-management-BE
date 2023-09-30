@@ -3,10 +3,20 @@ const validator = require("validator");
 
 
 const meetingSchema = new mongoose.Schema({
-  email: {
+  deanEmail: {
     type: String,
-    unique: true,
     validate: [validator.isEmail, "Please enter valid email"],
+    required:true,
+  },
+  deanName: {
+    type: String,
+  },
+  studentEmail: {
+    type: String,
+    validate: [validator.isEmail, "Please enter valid email"],
+  },
+  studentName: {
+    type: String,
   },
   bookingStatus: {
     type: String,
@@ -14,9 +24,7 @@ const meetingSchema = new mongoose.Schema({
     default:"pending"
   }
   ,
-  name: {
-    type: String,
-  },
+
   duration:{
     type:String,
     required:true,

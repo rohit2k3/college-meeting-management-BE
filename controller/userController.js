@@ -5,13 +5,14 @@ const errorHandler = require('../utils/errorHandler');
 
 
 const register = asyncError(async (req,res,next) => {
-    const {email, password} = req.body;
-    if (!email || !password) {
+    const {email, password , name} = req.body;
+    if (!email || !password || !name) {
         return (new errorHandler("Please fill proper details", 403));
     }
 
     const userData = await User.create({
         email,
+        name,
         password
     })
     const jwt = userData.generateJWT();
@@ -38,6 +39,8 @@ const userLogin = asyncError(async (req, res, next) => {
     if (!passCheck) {
         return next(new errorHandler("Invalid Details", 401))
     }
+    // console.log(req.user);
+    // req.user = await email;
 
     res.status(200).setHeader('Authorization', `Bearer ${jwttoken}`).json({
         status: true,

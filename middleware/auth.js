@@ -18,7 +18,6 @@ exports.checkLogin = asyncError(async (req, res, next) => {
 
 exports.roleCheck = asyncError(async (req, res, next) => {
     const role = req.user.role;
-    console.log(`role ${role}`);
     if (role != "admin") {
         return next(new ErrorHandler("You are not authorised to access this resource", 401))
     }

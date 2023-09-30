@@ -18,7 +18,7 @@ const createSlot = asyncError(async (req, res, next) => {
   if (!day) {
     return next(new errorHandler("Invalid Details", 400));
   }
-  const saveData = await Meeting.create({ day });
+  const saveData = await Meeting.create({ deanEmail:req.user.email , deanName:req.user.name, day });
   res.status(201).json({ status: true, message: "Slot Created", saveData });
 });
 
@@ -38,7 +38,7 @@ const bookSlot = asyncError(async (req, res, next) => {
   }
   const saveData = await Meeting.findByIdAndUpdate(
     id,
-    { bookingStatus: "booked", email, name},
+    { bookingStatus: "booked", studentEmail:email, studentName:name},
     {
       new: true,
       runValidators: true,
